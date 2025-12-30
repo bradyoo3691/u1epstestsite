@@ -1,0 +1,7 @@
+{
+  "name": "유원EPS (U1 eps) Official Website",
+  "description": "High-end minimalist website for U1 eps, featuring a product catalog, CMS, and admin dashboard with Gemini AI integration.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
