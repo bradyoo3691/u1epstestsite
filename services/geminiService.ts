@@ -2,15 +2,15 @@
 import { GoogleGenAI } from "@google/genai";
 
 export class GeminiService {
-  private ai: GoogleGenAI;
-
-  constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  private getAI() {
+    // API 호출 시점에 인스턴스를 생성하여 환경 변수 로드 타이밍 문제 방지
+    return new GoogleGenAI({ apiKey: process.env.API_KEY });
   }
 
   async generateProductDescription(productName: string): Promise<string> {
     try {
-      const response = await this.ai.models.generateContent({
+      const ai = this.getAI();
+      const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: `당신은 고급 가구 브랜드 '유원EPS'의 카피라이터입니다. 제품명 '${productName}'에 대한 매력적이고 전문적인 제품 설명을 2~3문장으로 작성해주세요. 한국어로 작성하세요.`,
       });
@@ -23,7 +23,8 @@ export class GeminiService {
 
   async suggestBlogTopic(currentTopic: string): Promise<string> {
     try {
-      const response = await this.ai.models.generateContent({
+      const ai = this.getAI();
+      const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: `'${currentTopic}'와 관련된 블로그 게시물 제목 3가지를 추천해주세요. 한 문장씩 리스트 형태로 작성하세요.`,
       });
