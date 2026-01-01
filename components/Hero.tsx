@@ -1,41 +1,53 @@
 
 import React from 'react';
+import { Language } from '../types';
+import { TRANSLATIONS } from '../constants';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  lang: Language;
+}
+
+const Hero: React.FC<HeroProps> = ({ lang }) => {
+  const t = TRANSLATIONS[lang];
   return (
     <section className="relative pt-32 pb-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-12">
         <div className="z-10">
-          <h2 className="text-[#FF6B00] font-bold tracking-widest text-sm uppercase mb-4">Quality & Comfort</h2>
-          <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] mb-8">
-            편안함은 기본,<br />
-            <span className="text-[#FF6B00]">단단함</span>은 기준
+          <h2 className="text-[#BECF47] font-bold tracking-widest text-sm uppercase mb-4">{t.heroBadge}</h2>
+          <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] mb-8 whitespace-pre-line">
+            {t.heroTitle.split('\n').map((line, i) => (
+              <React.Fragment key={i}>
+                {line.includes('단단함') || line.includes('Durability') ? (
+                   <span className="text-[#BECF47]">{line}</span>
+                ) : line}
+                {i < t.heroTitle.split('\n').length - 1 && <br />}
+              </React.Fragment>
+            ))}
           </h1>
-          <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-lg">
-            앉는 순간 느껴지는 국내 생산의 차이.<br />
-            의자는 매일 쓰니까, 제대로 만들었습니다.
+          <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-lg whitespace-pre-line">
+            {t.heroDesc}
           </p>
           <div className="flex gap-4">
-            <button className="bg-[#FF6B00] text-white px-8 py-4 rounded-full font-bold hover:bg-[#e66000] transition-transform active:scale-95">
-              제품 둘러보기
+            <button className="bg-[#BECF47] text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-transform active:scale-95 shadow-lg shadow-lime-100">
+              {t.btnBrowse}
             </button>
             <button className="border border-gray-200 text-gray-800 px-8 py-4 rounded-full font-bold hover:bg-gray-50 transition-colors">
-              상담 문의
+              {t.btnContact}
             </button>
           </div>
         </div>
         <div className="relative">
-          <div className="w-full h-[500px] bg-gray-50 rounded-3xl overflow-hidden shadow-2xl rotate-3 transition-transform hover:rotate-0 duration-500">
+          <div className="w-full h-[500px] bg-white rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center p-8 transition-transform hover:scale-[1.02] duration-500">
             <img 
-              src="https://picsum.photos/seed/hero-chair/1000/1000" 
-              alt="Premium Chair"
-              className="w-full h-full object-cover"
+              src="https://i.ibb.co/6RfKKtkD/5-removebg-preview.png" 
+              alt="Klang Chair no.1"
+              className="max-w-full max-h-full object-contain"
             />
           </div>
-          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl">
-            <p className="text-sm text-gray-500 font-medium">Monthly Top Seller</p>
-            <p className="text-lg font-bold">Echo Pro V3</p>
-            <p className="text-[#FF6B00] font-bold">₩58,000</p>
+          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-50">
+            <p className="text-sm text-gray-500 font-medium">{t.monthlyBest}</p>
+            <p className="text-lg font-bold">클랑체어 1호</p>
+            <p className="text-[#BECF47] font-bold">₩22,000</p>
           </div>
         </div>
       </div>

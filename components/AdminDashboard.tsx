@@ -17,6 +17,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ products, setProducts, 
   const [loadingAI, setLoadingAI] = useState(false);
 
   const handleAddProduct = () => {
+    // Fixed: Added missing descriptionEn and categoryEn to comply with the Product interface
     const newProduct: Product = {
       id: Date.now().toString(),
       name: '새 제품',
@@ -25,7 +26,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ products, setProducts, 
       image: 'https://picsum.photos/seed/' + Math.random() + '/800/800',
       colors: ['#FFFFFF'],
       description: '설명을 입력하세요.',
-      category: '카테고리'
+      descriptionEn: 'Please enter description.',
+      category: '카테고리',
+      categoryEn: 'Category'
     };
     setProducts([...products, newProduct]);
   };
@@ -48,19 +51,19 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ products, setProducts, 
         <aside className="w-full md:w-64 flex flex-col gap-2">
           <button 
             onClick={() => setActiveTab('products')}
-            className={`p-4 rounded-xl text-left font-bold transition-all ${activeTab === 'products' ? 'bg-[#FF6B00] text-white' : 'bg-white hover:bg-gray-100'}`}
+            className={`p-4 rounded-xl text-left font-bold transition-all ${activeTab === 'products' ? 'bg-[#BECF47] text-white' : 'bg-white hover:bg-gray-100'}`}
           >
             📦 제품 관리
           </button>
           <button 
             onClick={() => setActiveTab('blog')}
-            className={`p-4 rounded-xl text-left font-bold transition-all ${activeTab === 'blog' ? 'bg-[#FF6B00] text-white' : 'bg-white hover:bg-gray-100'}`}
+            className={`p-4 rounded-xl text-left font-bold transition-all ${activeTab === 'blog' ? 'bg-[#BECF47] text-white' : 'bg-white hover:bg-gray-100'}`}
           >
             📝 블로그 관리
           </button>
           <button 
             onClick={() => setActiveTab('settings')}
-            className={`p-4 rounded-xl text-left font-bold transition-all ${activeTab === 'settings' ? 'bg-[#FF6B00] text-white' : 'bg-white hover:bg-gray-100'}`}
+            className={`p-4 rounded-xl text-left font-bold transition-all ${activeTab === 'settings' ? 'bg-[#BECF47] text-white' : 'bg-white hover:bg-gray-100'}`}
           >
             ⚙️ 사이트 설정
           </button>
@@ -74,7 +77,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ products, setProducts, 
                 <h2 className="text-2xl font-bold">제품 리스트 ({products.length})</h2>
                 <button 
                   onClick={handleAddProduct}
-                  className="bg-[#FF6B00] text-white px-4 py-2 rounded-lg text-sm font-bold"
+                  className="bg-[#BECF47] text-white px-4 py-2 rounded-lg text-sm font-bold"
                 >
                   + 제품 추가
                 </button>
@@ -136,8 +139,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ products, setProducts, 
               <div>
                 <label className="block text-sm font-bold mb-2">메인 테마 컬러</label>
                 <div className="flex gap-4 items-center">
-                  <div className="w-10 h-10 rounded-full bg-[#FF6B00]" />
-                  <span className="text-sm font-mono text-gray-500">#FF6B00 (유원 오렌지)</span>
+                  <div className="w-10 h-10 rounded-full bg-[#BECF47]" />
+                  <span className="text-sm font-mono text-gray-500">#BECF47 (유원 라임)</span>
                 </div>
               </div>
               <div>

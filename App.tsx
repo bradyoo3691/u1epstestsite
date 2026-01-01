@@ -5,13 +5,12 @@ import Hero from './components/Hero';
 import ProductList from './components/ProductList';
 import AdminDashboard from './components/AdminDashboard';
 import { ViewState, Language, Product, BlogPost, SiteConfig } from './types';
-import { INITIAL_PRODUCTS, INITIAL_POSTS } from './constants';
+import { INITIAL_PRODUCTS, INITIAL_POSTS, TRANSLATIONS } from './constants';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('home');
   const [lang, setLang] = useState<Language>(Language.KO);
   
-  // Persistence with localStorage
   const [products, setProducts] = useState<Product[]>(() => {
     const saved = localStorage.getItem('u1_products');
     return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
@@ -23,11 +22,15 @@ const App: React.FC = () => {
   });
 
   const [config, setConfig] = useState<SiteConfig>({
-    themeColor: '#FF6B00',
+    themeColor: '#BECF47',
     companyName: '유원EPS',
     heroTitle: '편안함은 기본, 단단함은 기준',
-    heroSubTitle: '앉는 순간 느껴지는 국내 생산의 차이'
+    heroTitleEn: 'Comfort is Essential, Durability is Standard',
+    heroSubTitle: '앉는 순간 느껴지는 국내 생산의 차이',
+    heroSubTitleEn: 'Experience the difference of Made in Korea'
   });
+
+  const t = TRANSLATIONS[lang];
 
   useEffect(() => {
     localStorage.setItem('u1_products', JSON.stringify(products));
@@ -42,33 +45,33 @@ const App: React.FC = () => {
       case 'home':
         return (
           <>
-            <Hero />
+            <Hero lang={lang} />
             <section className="max-w-7xl mx-auto px-6 py-24">
               <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                 <div>
-                  <h2 className="text-3xl font-bold mb-2">주요 제품</h2>
-                  <p className="text-gray-500">가장 사랑받는 베스트셀러 모델입니다.</p>
+                  <h2 className="text-3xl font-bold mb-2">{t.mainProducts}</h2>
+                  <p className="text-gray-500">{t.mainProductsDesc}</p>
                 </div>
-                <button onClick={() => setView('products')} className="text-[#FF6B00] font-bold flex items-center gap-2 hover:translate-x-1 transition-transform">
-                  전체보기 <span>→</span>
+                <button onClick={() => setView('products')} className="text-[#BECF47] font-bold flex items-center gap-2 hover:translate-x-1 transition-transform">
+                  {t.viewAll} <span>→</span>
                 </button>
               </div>
-              <ProductList products={products.slice(0, 4)} />
+              <ProductList products={products.slice(0, 4)} lang={lang} />
             </section>
           </>
         );
       case 'products':
         return (
           <section className="max-w-7xl mx-auto px-6 py-32">
-            <h1 className="text-4xl font-bold mb-4">전체 제품</h1>
-            <p className="text-gray-500 mb-12">유원EPS의 모든 디자인 체어를 한 눈에 확인하세요.</p>
-            <ProductList products={products} />
+            <h1 className="text-4xl font-bold mb-4">{t.navProducts}</h1>
+            <p className="text-gray-500 mb-12">{t.mainProductsDesc}</p>
+            <ProductList products={products} lang={lang} />
           </section>
         );
       case 'blog':
         return (
           <section className="max-w-7xl mx-auto px-6 py-32">
-            <h1 className="text-4xl font-bold mb-12">블로그 / 소식</h1>
+            <h1 className="text-4xl font-bold mb-12">{t.navBlog}</h1>
             <div className="grid gap-12">
               {posts.map(post => (
                 <div key={post.id} className="grid md:grid-cols-2 gap-8 items-center group cursor-pointer">
@@ -76,10 +79,14 @@ const App: React.FC = () => {
                     <img src={post.image} className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-700" />
                   </div>
                   <div>
-                    <p className="text-[#FF6B00] font-bold text-sm mb-2">{post.date}</p>
-                    <h2 className="text-2xl font-bold mb-4 group-hover:text-[#FF6B00] transition-colors">{post.title}</h2>
-                    <p className="text-gray-500 leading-relaxed mb-6">{post.content}</p>
-                    <button className="font-bold text-sm border-b-2 border-gray-200 group-hover:border-[#FF6B00] transition-all pb-1">더 읽어보기</button>
+                    <p className="text-[#BECF47] font-bold text-sm mb-2">{post.date}</p>
+                    <h2 className="text-2xl font-bold mb-4 group-hover:text-[#BECF47] transition-colors">
+                      {lang === Language.KO ? post.title : post.titleEn}
+                    </h2>
+                    <p className="text-gray-500 leading-relaxed mb-6 whitespace-pre-line">
+                      {lang === Language.KO ? post.content : post.contentEn}
+                    </p>
+                    <button className="font-bold text-sm border-b-2 border-gray-200 group-hover:border-[#BECF47] transition-all pb-1">Read More</button>
                   </div>
                 </div>
               ))}
@@ -88,34 +95,55 @@ const App: React.FC = () => {
         );
       case 'delivery':
         return (
-          <section className="max-w-4xl mx-auto px-6 py-32 text-center">
-            <h1 className="text-4xl font-bold mb-8">포장 및 배송 안내</h1>
-            <div className="aspect-[21/9] bg-gray-50 rounded-3xl flex items-center justify-center mb-12 text-gray-400">
-              <span className="text-6xl">📦</span>
-            </div>
-            <div className="text-left space-y-12">
-              <div className="bg-orange-50 p-8 rounded-3xl border border-orange-100">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                   <span className="bg-[#FF6B00] w-2 h-6 inline-block rounded-full"></span>
-                   안전한 이중 포장
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  유원EPS의 모든 제품은 배송 중 발생할 수 있는 스크래치를 방지하기 위해 특수 제작된 보호 필름과 강화 골판지 박스를 사용하여 꼼꼼하게 패킹됩니다.
+          <section className="max-w-4xl mx-auto px-6 py-32">
+            <h1 className="text-4xl font-bold mb-12 text-center">{t.deliveryTitle}</h1>
+            
+            <div className="space-y-8">
+              {/* Shipping Fee Guide Section */}
+              <div className="bg-white border-2 border-[#BECF47] p-8 md:p-12 rounded-[2rem] shadow-sm">
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 leading-tight whitespace-pre-line">
+                  {t.shippingGuideTitle}
+                </h2>
+                <p className="text-lg text-gray-600 mb-8 font-medium whitespace-pre-line">
+                  {t.shippingGuideIntro}
                 </p>
+                
+                <div className="grid md:grid-cols-2 gap-8 mb-10">
+                  <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                    <p className="text-[#BECF47] font-bold text-sm uppercase tracking-wider mb-2">Standard Unit</p>
+                    <p className="text-xl font-bold text-gray-800 whitespace-pre-line">{t.shippingDetail1}</p>
+                  </div>
+                  <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                    <p className="text-[#BECF47] font-bold text-sm uppercase tracking-wider mb-2">Cost Per Box</p>
+                    <p className="text-xl font-bold text-gray-800 whitespace-pre-line">{t.shippingDetail2}</p>
+                  </div>
+                </div>
+
+                <div className="border-t border-dashed border-gray-200 pt-8">
+                  <h3 className="text-lg font-bold text-gray-800 mb-4 whitespace-pre-line">{t.shippingExampleTitle}</h3>
+                  <ul className="space-y-3 text-gray-600 font-medium whitespace-pre-line">
+                    <li>{t.shippingExample1}</li>
+                    <li>{t.shippingExample2}</li>
+                  </ul>
+                </div>
               </div>
-              <div className="grid md:grid-cols-3 gap-8">
-                 <div className="p-6 border border-gray-100 rounded-2xl">
-                    <p className="font-bold mb-2">배송 지역</p>
-                    <p className="text-sm text-gray-500">전국 (제주/도서산간 별도)</p>
-                 </div>
-                 <div className="p-6 border border-gray-100 rounded-2xl">
-                    <p className="font-bold mb-2">평균 배송일</p>
-                    <p className="text-sm text-gray-500">영업일 기준 2-4일 이내</p>
-                 </div>
-                 <div className="p-6 border border-gray-100 rounded-2xl">
-                    <p className="font-bold mb-2">배송비</p>
-                    <p className="text-sm text-gray-500">기본 무료 (일부 품목 제외)</p>
-                 </div>
+
+              {/* Bulk Purchase Tip Section */}
+              <div className="bg-[#fbfc8233] p-8 md:p-12 rounded-[2rem] border border-[#BECF47]/30">
+                <h3 className="text-xl md:text-2xl font-bold mb-6 text-gray-900 whitespace-pre-line">
+                  {t.bulkTipTitle}
+                </h3>
+                <p className="text-gray-700 leading-relaxed mb-8 text-lg whitespace-pre-line">
+                  {t.bulkTipDesc}
+                </p>
+                <div className="bg-white p-6 rounded-2xl shadow-sm inline-block border border-[#BECF47]/50">
+                   <p className="text-xl md:text-2xl font-bold text-[#8ba634] whitespace-pre-line">
+                     {t.bulkContact}
+                   </p>
+                   <p className="text-sm text-gray-500 mt-1 font-medium pl-8 whitespace-pre-line">
+                     {t.bulkContactSub}
+                   </p>
+                </div>
               </div>
             </div>
           </section>
@@ -125,37 +153,26 @@ const App: React.FC = () => {
           <section className="max-w-7xl mx-auto px-6 py-32">
             <div className="grid md:grid-cols-2 gap-16">
               <div>
-                <h1 className="text-4xl font-bold mb-4">문의하기</h1>
-                <p className="text-gray-500 mb-12">도움이 필요하신가요? 저희 팀이 빠르게 답변해 드립니다.</p>
+                <h1 className="text-4xl font-bold mb-4">{t.contactTitle}</h1>
+                <p className="text-gray-500 mb-12 whitespace-pre-line">{t.contactDesc}</p>
                 
                 <form className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-gray-400 uppercase">성함</label>
-                      <input type="text" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#FF6B00]" />
+                      <label className="text-xs font-bold text-gray-400 uppercase">{t.formName}</label>
+                      <input type="text" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-gray-400 uppercase">연락처</label>
-                      <input type="text" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#FF6B00]" />
+                      <label className="text-xs font-bold text-gray-400 uppercase">{t.formPhone}</label>
+                      <input type="text" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-gray-400 uppercase">문의내용</label>
-                    <textarea rows={5} className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#FF6B00]" />
+                    <label className="text-xs font-bold text-gray-400 uppercase">{t.formMessage}</label>
+                    <textarea rows={5} className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" />
                   </div>
-                  <button className="w-full bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-black transition-colors">메시지 보내기</button>
+                  <button className="w-full bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-black transition-colors">{t.formSubmit}</button>
                 </form>
-
-                <div className="mt-12 flex gap-6">
-                   <a href="#" className="flex items-center gap-2 font-bold text-gray-600 hover:text-[#FF6B00] transition-colors">
-                      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" className="w-6 h-6" />
-                      Instagram
-                   </a>
-                   <a href="#" className="flex items-center gap-2 font-bold text-gray-600 hover:text-[#FF6B00] transition-colors">
-                      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111466.png" className="w-6 h-6" />
-                      KakaoTalk
-                   </a>
-                </div>
               </div>
               <div className="space-y-8">
                  <div className="h-[400px] bg-gray-100 rounded-3xl overflow-hidden relative shadow-inner">
@@ -165,12 +182,12 @@ const App: React.FC = () => {
                  </div>
                  <div className="grid grid-cols-2 gap-8">
                     <div>
-                       <p className="text-xs font-bold text-[#FF6B00] mb-2 uppercase">Head Office</p>
-                       <p className="font-bold">경기도 안산시 상록구</p>
-                       <p className="text-sm text-gray-500">광덕서로 82 유원빌딩 4층</p>
+                       <p className="text-xs font-bold text-[#BECF47] mb-2 uppercase">{t.office}</p>
+                       <p className="font-bold">{lang === Language.KO ? '경기도 안산시' : 'Ansan-si, Gyeonggi-do'}</p>
+                       <p className="text-sm text-gray-500 whitespace-pre-line">{t.address}</p>
                     </div>
                     <div>
-                       <p className="text-xs font-bold text-[#FF6B00] mb-2 uppercase">Contact Us</p>
+                       <p className="text-xs font-bold text-[#BECF47] mb-2 uppercase">Contact Us</p>
                        <p className="font-bold">031-123-4567</p>
                        <p className="text-sm text-gray-500">support@u1eps.com</p>
                     </div>
@@ -193,7 +210,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen selection:bg-[#FF6B00] selection:text-white">
+    <div className="min-h-screen selection:bg-[#BECF47] selection:text-white">
       <Navbar 
         currentView={view} 
         setView={setView} 
@@ -210,43 +227,42 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div className="col-span-1 md:col-span-1">
               <div className="text-2xl font-bold tracking-tighter mb-6">
-                <span className="text-[#FF6B00]">U1</span>
+                <span className="text-[#BECF47]">U1</span>
                 <span>eps</span>
               </div>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                국내 최고 수준의 사출 기술로<br />
-                가장 아름답고 견고한 의자를 만듭니다.
+              <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">
+                {t.footerDesc}
               </p>
             </div>
             <div>
               <h4 className="font-bold mb-6">Company</h4>
               <ul className="text-sm text-gray-500 space-y-4">
-                <li><button onClick={() => setView('home')}>브랜드 스토리</button></li>
-                <li>오시는 길</li>
-                <li>이용약관</li>
-                <li>개인정보처리방침</li>
+                <li><button onClick={() => setView('home')}>{lang === Language.KO ? '브랜드 스토리' : 'Brand Story'}</button></li>
+                <li>{lang === Language.KO ? '오시는 길' : 'Directions'}</li>
+                <li>{lang === Language.KO ? '이용약관' : 'Terms'}</li>
+                <li>{lang === Language.KO ? '개인정보처리방침' : 'Privacy Policy'}</li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold mb-6">Support</h4>
               <ul className="text-sm text-gray-500 space-y-4">
-                <li><button onClick={() => setView('contact')}>1:1 문의</button></li>
-                <li><button onClick={() => setView('delivery')}>배송조회</button></li>
-                <li>A/S 안내</li>
-                <li>대량구매 문의</li>
+                <li><button onClick={() => setView('contact')}>{lang === Language.KO ? '1:1 문의' : 'Q&A'}</button></li>
+                <li><button onClick={() => setView('delivery')}>{lang === Language.KO ? '배송조회' : 'Track Order'}</button></li>
+                <li>{lang === Language.KO ? 'A/S 안내' : 'Warranty'}</li>
+                <li>{lang === Language.KO ? '대량구매 문의' : 'Bulk Purchase'}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-6">Newsletter</h4>
-              <p className="text-sm text-gray-500 mb-4">새로운 제품 소식을 받아보세요.</p>
+              <h4 className="font-bold mb-6">{t.newsletter}</h4>
+              <p className="text-sm text-gray-500 mb-4 whitespace-pre-line">{t.newsletterDesc}</p>
               <div className="flex gap-2">
-                <input type="text" placeholder="이메일 주소" className="bg-white border-none rounded-lg px-4 py-2 flex-1 text-sm focus:ring-2 focus:ring-[#FF6B00]" />
-                <button className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-bold">구독</button>
+                <input type="text" placeholder="Email" className="bg-white border-none rounded-lg px-4 py-2 flex-1 text-sm focus:ring-2 focus:ring-[#BECF47]" />
+                <button className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-bold">{t.subscribe}</button>
               </div>
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-gray-400 border-t border-gray-200 pt-10">
-            <p>© 2024 유원EPS (U1 eps). All Rights Reserved.</p>
+            <p>© 2026 유원EPS (U1 eps). All Rights Reserved.</p>
             <div className="flex gap-6">
                <a href="#">Instagram</a>
                <a href="#">KakaoTalk</a>
