@@ -1,6 +1,8 @@
 
 import { Product, BlogPost, Language } from './types';
 
+export const THEME_COLOR = '#FF6B00';
+
 export const TRANSLATIONS = {
   [Language.KO]: {
     navHome: '홈',
@@ -97,7 +99,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     nameEn: 'Premium Echo Chair',
     price: 22000,
     image: 'https://i.ibb.co/n8YJMcTX/image.png',
-    colors: ['#BECF47', '#FFFFFF', '#000000', '#2D5A27'],
+    colors: ['#FF6B00', '#FFFFFF', '#000000', '#2D5A27'],
     description: '인체공학적 설계로 장시간 착석에도 편안함을 유지합니다.',
     descriptionEn: 'Ergonomic design ensures comfort even during long hours of sitting.',
     category: '식탁의자',
@@ -121,7 +123,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     nameEn: 'U1 Signature Armchair',
     price: 62000,
     image: 'https://picsum.photos/seed/chair3/800/800',
-    colors: ['#FFFFFF', '#BECF47'],
+    colors: ['#FFFFFF', '#FF6B00'],
     description: '유원EPS만의 독자적인 사출 기술로 제작된 시그니처 모델입니다.',
     descriptionEn: 'A signature model created with U1 eps unique injection technology.',
     category: '암체어',

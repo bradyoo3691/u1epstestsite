@@ -12,139 +12,150 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ lang, setView }) => {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className="bg-white pt-20 pb-20">
+    <div className="bg-white pt-32 md:pt-48 pb-20">
       {/* Back Button */}
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-7xl mx-auto px-6 py-4 md:py-8">
         <button 
           onClick={() => setView('home')}
-          className="text-gray-400 hover:text-[#BECF47] font-bold flex items-center gap-2 transition-colors"
+          className="text-gray-400 hover:text-[#FF6B00] font-black flex items-center gap-2 transition-colors uppercase tracking-widest text-xs md:text-sm"
         >
-          ← 뒤로 가기
+          <span className="text-xl">←</span> Go back
         </button>
       </div>
 
-      {/* 0. Hero Section */}
-      <section className="bg-[#f2f2f2] pt-12 pb-24 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
-           <h3 className="text-gray-400 font-medium tracking-[0.3em] mb-2 uppercase">KLANG CHAIR</h3>
-           <h1 className="text-4xl md:text-5xl font-bold mb-12">클랑체어 1호</h1>
-           <div className="w-full max-w-4xl mb-12 overflow-hidden">
+      {/* 0. Hero Section / Main Banner */}
+      <section className="bg-gray-50 pt-8 md:pt-16 pb-16 md:pb-32 px-6 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-[#FF6B00]/5 -skew-y-3 origin-top-left" />
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center relative z-10">
+           <h3 className="text-[#FF6B00] font-black tracking-[0.4em] text-[10px] md:text-sm mb-4 uppercase">KLANG CHAIR SERIES</h3>
+           <h1 className="text-4xl md:text-8xl font-black mb-10 md:mb-20 tracking-tighter">클랑체어 1호</h1>
+           <div className="w-full max-w-4xl overflow-hidden group">
               <img 
                 src="https://i.ibb.co/n8YJMcTX/image.png" 
                 alt="Klang Chair Hero" 
-                className="w-full h-auto object-contain scale-110 transform"
+                className="w-full h-auto object-contain transform md:scale-110 drop-shadow-[0_35px_35px_rgba(255,107,0,0.15)] group-hover:scale-125 transition-transform duration-1000"
               />
            </div>
         </div>
       </section>
 
       {/* 1. Product Info Table */}
-      <section className="max-w-4xl mx-auto px-6 py-24">
-        <h2 className="text-3xl font-bold mb-12 text-center">제품정보</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-2">
-           {[
-             ['제품명', '클랑체어 1호'],
-             ['구성', '분체도장 하부 프레임, PP사출 상부, 고무패킹 부착'],
-             ['소재', '플라스틱, 철재, 고무'],
-             ['사이즈', 'W480mm x D430mm x H810mm'],
-             ['색상', '오렌지, 블루, 블랙, 그린'],
-             ['원산지', '대한민국'],
-             ['제조/판매', '유원EPS'],
-             ['고객센터', '031-574-6431'],
-           ].map(([label, value]) => (
-             <div key={label} className="flex border-b border-gray-100 py-5 items-start">
-                <span className="w-28 font-bold text-gray-400 shrink-0">{label}</span>
-                <span className="text-gray-800 font-medium">{value}</span>
-             </div>
-           ))}
+      <section className="max-w-5xl mx-auto px-6 py-20 md:py-40">
+        <div className="flex flex-col md:flex-row gap-16 md:gap-32">
+          <div className="flex-1">
+            <h2 className="text-3xl md:text-6xl font-black mb-8 md:mb-12 tracking-tighter">Technical<br className="hidden md:block"/>Details</h2>
+            <p className="text-gray-400 font-medium text-base md:text-xl leading-relaxed">
+              최고의 기술력이 응집된 클랑체어의 상세 스펙입니다. <br/>
+              국내 최고 사출 기술로 만들어진 완벽한 마감을 경험하세요.
+            </p>
+          </div>
+          <div className="flex-[1.5] grid grid-cols-1 gap-0">
+             {[
+               ['제품명', '클랑체어 1호'],
+               ['구성', '분체도장 하부 프레임, PP사출 상부'],
+               ['소재', '강화 플라스틱(PP), 고강도 철재'],
+               ['사이즈', 'W480mm x D430mm x H810mm'],
+               ['색상', '오렌지, 블루, 블랙, 그린'],
+               ['원산지', '대한민국 (Made in Korea)'],
+               ['판매원', '유원EPS (U1 eps)'],
+               ['CS센터', '031-574-6431'],
+             ].map(([label, value]) => (
+               <div key={label} className="flex border-b border-gray-100 py-6 md:py-8 items-start group">
+                  <span className="w-24 md:w-32 font-black text-gray-300 group-hover:text-[#FF6B00] transition-colors text-xs md:text-sm uppercase tracking-widest pt-1">{label}</span>
+                  <span className="text-gray-900 font-black text-base md:text-2xl tracking-tight">{value}</span>
+               </div>
+             ))}
+          </div>
         </div>
       </section>
 
-      {/* 2. Scenario Image 1 */}
-      <section className="max-w-5xl mx-auto px-6 mb-24">
-         <img 
-           src="https://i.ibb.co/27G5zdSf/3.png" 
-           alt="Dining Scenario" 
-           className="w-full h-auto rounded-3xl shadow-lg"
-         />
+      {/* 2. Visual Scenario */}
+      <section className="max-w-7xl mx-auto px-6 mb-20 md:mb-40">
+         <div className="rounded-[2.5rem] md:rounded-[5rem] overflow-hidden shadow-2xl shadow-orange-100 ring-8 md:ring-[20px] ring-gray-50">
+           <img 
+             src="https://i.ibb.co/27G5zdSf/3.png" 
+             alt="Dining Scenario" 
+             className="w-full h-auto"
+           />
+         </div>
       </section>
 
-      {/* 3. Product Size Section */}
-      <section className="bg-[#f9fafb] py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-           <h2 className="text-3xl font-bold mb-4 uppercase tracking-wider">Product Size</h2>
-           <p className="text-gray-500 mb-12 font-medium">대한민국 표준 테이블에 맞췄습니다.</p>
+      {/* 3. Product Size & Standards */}
+      <section className="bg-gray-900 py-24 md:py-48 px-6 text-white overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#FF6B00] opacity-10 blur-[150px]" />
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+           <h2 className="text-4xl md:text-8xl font-black mb-6 md:mb-10 tracking-tighter uppercase">Dimensions</h2>
+           <p className="text-gray-400 font-bold mb-16 md:mb-24 text-base md:text-2xl">대한민국 표준 테이블에 맞춘 최적의 비율</p>
            
-           <div className="mb-16">
-              <img 
-                src="https://i.ibb.co/1YMLLSTx/2025-12-15-6-19-52.png" 
-                alt="Size Diagram" 
-                className="mx-auto max-w-full h-auto" 
-              />
+           <div className="mb-16 md:mb-24 flex justify-center">
+              <div className="bg-white p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl inline-block max-w-3xl">
+                <img 
+                  src="https://i.ibb.co/1YMLLSTx/2025-12-15-6-19-52.png" 
+                  alt="Size Diagram" 
+                  className="w-full h-auto" 
+                />
+              </div>
            </div>
 
-           <div className="max-w-2xl mx-auto text-left space-y-4 p-8 bg-white rounded-3xl border border-gray-100 shadow-sm">
-              <p className="text-gray-600 text-sm">* 식당, 학원, 휴게소에서 가장 많이 쓰이는 표준 테이블 높이를 기준으로 설계</p>
-              <div className="flex justify-between items-center pt-4 border-t border-gray-50">
-                <span className="font-bold text-gray-800">표준 테이블 높이</span>
-                <span className="text-2xl font-black text-[#BECF47]">720 ~ 740mm</span>
+           <div className="grid md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+              <div className="p-8 md:p-12 rounded-[2.5rem] bg-white/5 border border-white/10">
+                <p className="text-[#FF6B00] font-black text-xs md:text-sm uppercase tracking-[0.3em] mb-4">Optimization</p>
+                <p className="text-gray-300 text-sm md:text-xl font-medium leading-relaxed">
+                  식당, 학원, 휴게소에서 가장 많이 쓰이는 720~740mm 표준 테이블 높이에 맞춰 무릎과 허리의 부담을 최소화했습니다.
+                </p>
+              </div>
+              <div className="p-8 md:p-12 rounded-[2.5rem] bg-[#FF6B00] text-white">
+                <p className="font-black text-xs md:text-sm uppercase tracking-[0.3em] mb-4 opacity-70">Target Height</p>
+                <div className="flex flex-col">
+                  <span className="text-sm md:text-lg font-bold">Standard Table</span>
+                  <span className="text-3xl md:text-6xl font-black tracking-tighter">720 ~ 740mm</span>
+                </div>
               </div>
            </div>
         </div>
       </section>
 
-      {/* 4. Scenario Gallery Section */}
-      <section className="max-w-5xl mx-auto px-6 py-24">
-         <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-gray-800">+ 좀 더 세련된 실사례 사진</h2>
-         </div>
-         <img 
-           src="https://i.ibb.co/KxZRznQY/2025-12-15-6-28-05.png" 
-           alt="Scenario Gallery" 
-           className="w-full h-auto rounded-3xl shadow-md"
-         />
-      </section>
-
-      {/* 5. Feature 01 - Durability */}
-      <section className="py-24 px-6">
+      {/* 4. Durability & Core Values */}
+      <section className="py-24 md:py-48 px-6">
         <div className="max-w-5xl mx-auto">
-           <div className="text-center mb-20">
-              <span className="text-6xl font-black text-[#BECF47] opacity-20 block mb-2 leading-none">01</span>
-              <h2 className="text-4xl font-black mb-6">내구성</h2>
-              <p className="text-2xl text-gray-500 font-bold italic">“왜 10년 써도 멀쩡할까?”</p>
+           <div className="text-center mb-16 md:mb-24">
+              <span className="text-5xl md:text-9xl font-black text-[#FF6B00]/10 block mb-2 leading-none uppercase">Core Value</span>
+              <h2 className="text-3xl md:text-6xl font-black mb-6 tracking-tighter">압도적인 내구성</h2>
+              <p className="text-lg md:text-3xl text-gray-400 font-black italic tracking-tight">“시간이 지나도 변하지 않는 단단함”</p>
            </div>
            
-           <div className="bg-white rounded-[3rem] p-8 md:p-16 border border-gray-100 shadow-xl mb-16">
-              <p className="text-xl md:text-2xl text-center leading-relaxed font-bold text-gray-800 mb-16 whitespace-pre-line">
-                100% 국내 제조생산 및 포장까지 책임지고 있으며,{"\n"}
-                직접 용접한 <span className="text-[#BECF47] underline underline-offset-8">“통뼈 프레임”</span> 을 자랑합니다.
+           <div className="bg-white rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 border-2 border-gray-50 shadow-2xl mb-12 md:mb-24 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B00]/5 rounded-full -mr-16 -mt-16" />
+              <p className="text-xl md:text-4xl text-center leading-[1.3] font-black text-gray-900 mb-16 md:mb-32 whitespace-pre-line tracking-tighter">
+                100% 국내 제조생산 및 직영 포장 서비스.{"\n"}
+                직접 용접한 <span className="text-[#FF6B00] border-b-8 border-orange-100">“통뼈 프레임”</span> 의 차이를 느껴보세요.
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                 <div className="rounded-3xl overflow-hidden shadow-lg border border-gray-50 aspect-[4/3]">
-                    <img src="https://i.ibb.co/kVtcrFH4/image.png" alt="Welding Detail" className="w-full h-full object-cover" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-16 md:mb-32">
+                 <div className="rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border-4 border-gray-50 aspect-[4/3] group">
+                    <img src="https://i.ibb.co/kVtcrFH4/image.png" alt="Welding Detail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                  </div>
-                 <div className="rounded-3xl overflow-hidden shadow-lg border border-gray-50 aspect-[4/3]">
-                    <img src="https://i.ibb.co/QvmPZk9P/image.png" alt="Worker Assembly" className="w-full h-full object-cover" />
+                 <div className="rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border-4 border-gray-50 aspect-[4/3] group">
+                    <img src="https://i.ibb.co/QvmPZk9P/image.png" alt="Worker Assembly" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                  </div>
               </div>
 
-              <div className="space-y-12 max-w-3xl mx-auto">
-                 <div className="flex gap-6 items-start">
-                    <span className="bg-[#BECF47] text-white px-4 py-1 rounded-full text-xs font-black shrink-0 mt-1 uppercase">Point 1</span>
-                    <p className="text-lg text-gray-600 leading-relaxed font-medium">
-                       사출 생산라인에서 직접 용접까지 진행하며, 제품에 대해 가장 잘 이해하고 있는 기술자가 일체형 의자를 생산합니다.
+              <div className="space-y-12 md:space-y-20 max-w-4xl mx-auto">
+                 <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+                    <span className="bg-[#FF6B00] text-white px-4 py-2 rounded-full text-[10px] md:text-xs font-black shrink-0 tracking-widest uppercase shadow-lg shadow-orange-200">Point 01</span>
+                    <p className="text-lg md:text-2xl text-gray-600 leading-relaxed font-bold tracking-tight">
+                       생산 라인에서 직접 용접을 진행합니다. 제품의 설계 의도를 가장 잘 파악하고 있는 숙련된 기술자가 한 땀 한 땀 일체형 의자를 완성합니다.
                     </p>
                  </div>
-                 <div className="flex gap-6 items-start">
-                    <span className="bg-[#BECF47] text-white px-4 py-1 rounded-full text-xs font-black shrink-0 mt-1 uppercase">Point 2</span>
+                 <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+                    <span className="bg-[#FF6B00] text-white px-4 py-2 rounded-full text-[10px] md:text-xs font-black shrink-0 tracking-widest uppercase shadow-lg shadow-orange-200">Point 02</span>
                     <div className="flex-1">
-                       <p className="text-lg text-gray-600 leading-relaxed font-medium mb-8">
-                          PP(폴리프로필렌) 재료는 유연하여 변형이 적고, 물과 오염 및 열에도 강해 기본적으로 내구성이 강한 소재입니다.
+                       <p className="text-lg md:text-2xl text-gray-600 leading-relaxed font-bold mb-10 tracking-tight">
+                          고순도 PP(폴리프로필렌) 소재는 외부 충격과 오염에 탁월한 방어력을 가집니다. 시간이 지나도 변형 없이 처음의 텐션을 그대로 유지합니다.
                        </p>
-                       <div className="grid grid-cols-2 gap-4">
-                          <img src="https://i.ibb.co/mrMkTpys/pp.jpg" className="w-full h-48 object-cover rounded-2xl shadow-inner border border-gray-50" alt="PP Pellets" />
-                          <img src="https://i.ibb.co/6cT7yKCT/images.jpg" className="w-full h-48 object-cover rounded-2xl shadow-inner border border-gray-50" alt="Material Close up" />
+                       <div className="grid grid-cols-2 gap-4 md:gap-8">
+                          <img src="https://i.ibb.co/mrMkTpys/pp.jpg" className="w-full h-40 md:h-64 object-cover rounded-[2rem] shadow-xl ring-1 ring-gray-100" alt="PP Pellets" />
+                          <img src="https://i.ibb.co/6cT7yKCT/images.jpg" className="w-full h-40 md:h-64 object-cover rounded-[2rem] shadow-xl ring-1 ring-gray-100" alt="Material" />
                        </div>
                     </div>
                  </div>
@@ -153,98 +164,32 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ lang, setView }) => {
         </div>
       </section>
 
-      {/* 6. Feature 02 - Maintenance */}
-      <section className="bg-gray-50 py-32 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col items-center">
-           <span className="text-6xl font-black text-[#BECF47] opacity-20 block mb-2 leading-none">02</span>
-           <h2 className="text-4xl font-black mb-12">관리용이성</h2>
-           
-           <div className="w-full bg-white rounded-[3rem] p-12 border border-gray-100 shadow-xl overflow-hidden relative">
-              <div className="relative z-10 text-center mb-16">
-                 <p className="text-2xl font-bold text-gray-800 leading-relaxed max-w-2xl mx-auto whitespace-pre-line">
-                    오염과 물기가 스며들지 않아{"\n"}
-                    윤기있는 표면을 오랫동안 유지하고,{"\n"}
-                    처음과 같은 텐션의 유연함을 제공합니다.
-                 </p>
-              </div>
-              <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                 <img src="https://i.ibb.co/NRk4Lr2/image.png" alt="Surface Close up" className="w-full h-auto" />
-              </div>
-           </div>
-        </div>
-      </section>
-
-      {/* 7. Feature 03 - Design Detail */}
-      <section className="py-32 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-16 items-center">
-           <div className="flex-1">
-              <span className="text-6xl font-black text-[#BECF47] opacity-20 block mb-2 leading-none">03</span>
-              <h2 className="text-4xl font-black mb-8">디자인 디테일</h2>
-              <p className="text-2xl font-bold text-gray-700 leading-relaxed whitespace-pre-line">
-                 의자 다리 끝 <span className="text-[#BECF47] underline decoration-4 underline-offset-8">고무마개 패킹</span>으로 {"\n"}
-                 바닥의 잔기스 및 의자 끄는 소음을 막았습니다.
-              </p>
-           </div>
-           <div className="flex-1">
-              <div className="rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50 transition-transform hover:scale-[1.02] duration-500">
-                 <img src="https://i.ibb.co/sp7xGWpP/4.png" alt="Rubber Packing Detail" className="w-full h-auto" />
-              </div>
-           </div>
-        </div>
-      </section>
-
-      {/* 8. FAQ Section */}
-      <section className="max-w-4xl mx-auto px-6 py-32 border-t border-gray-100">
-        <h2 className="text-4xl font-black mb-20 text-center tracking-tight text-gray-900 italic">자주 묻는 질문 (FAQ)</h2>
-        <div className="space-y-12">
-           {[
-             {
-               q: '오늘 주문하면 언제 도착하나요?',
-               a: '오후 1시 이전 결제건은 당일 발송해드립니다! \n*보통 발송 다음날 도착하지만, 택배사 사정에 따라 1~2일 더 소요될 수 있습니다.'
-             },
-             {
-               q: '조립해야 하나요?',
-               a: '아니요! 박스만 뜯으면 바로 쓸 수 있는 100% 완제품입니다. \n*조립하느라 땀 흘리지 마세요! 😅'
-             },
-             {
-               q: '식당/학원인데 의자 높이가 맞을까요?',
-               a: '네, 걱정마세요. 대한민국 표준테이블 높이에 최적화된 사이즈로 제작되었습니다. \n*표준 테이블 높이 : 720~740mm (최적의 의자 높이 : 425mm)'
-             },
-             {
-               q: '바닥이 긁히지 않을까요?',
-               a: '의자 다리 끝에 도톰한 고무패킹이 끼워져 있어 소음과 바닥 긁힘을 방지해 줍니다.'
-             }
-           ].map((faq, idx) => (
-             <div key={idx} className="group">
-                <div className="flex gap-4 items-start mb-4">
-                   <span className="text-2xl font-black text-gray-200 group-hover:text-[#BECF47] transition-colors leading-none">Q.</span>
-                   <p className="text-xl font-bold text-gray-900">{faq.q}</p>
-                </div>
-                <div className="flex gap-4 items-start pl-8">
-                   <p className="text-gray-500 font-medium leading-relaxed whitespace-pre-line text-lg">
-                      <span className="text-[#BECF47] font-black mr-2">A.</span> {faq.a}
-                   </p>
-                </div>
-             </div>
-           ))}
-        </div>
-        
-        <div className="mt-32 text-center py-20 bg-gray-50 rounded-[4rem] border border-gray-100">
-           <p className="text-2xl md:text-3xl font-black text-gray-300 italic leading-snug">
-              “설치시간을 아끼고, 신뢰감 있고 튼튼함을 자랑하는<br/>
-              <span className="text-gray-800">클랑체어</span>”
+      {/* 5. CTA Section */}
+      <section className="bg-[#FF6B00] py-24 md:py-48 px-6 text-center text-white relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-white/5 skew-y-12 scale-150" />
+        <div className="max-w-4xl mx-auto relative z-10">
+           <h2 className="text-3xl md:text-7xl font-black mb-8 md:mb-12 tracking-tighter leading-tight">
+              가장 단단하고,<br/>가장 편안한 선택
+           </h2>
+           <p className="text-lg md:text-2xl font-bold mb-12 md:mb-20 opacity-80">
+              이미 수많은 식당과 교육 현장에서 검증되었습니다.
            </p>
-           <p className="mt-8 text-xs font-bold text-gray-400 tracking-widest uppercase">* 본 제품은 클랑체어 1호 입니다.</p>
+           <button 
+             onClick={() => setView('contact')}
+             className="bg-white text-[#FF6B00] px-10 md:px-20 py-5 md:py-8 rounded-full font-black text-lg md:text-2xl shadow-2xl hover:bg-black hover:text-white transition-all transform hover:-translate-y-2 active:scale-95"
+           >
+              대량구매 및 상담 문의하기
+           </button>
         </div>
       </section>
 
-      {/* Bottom Floating CTA Placeholder (Optional UX) */}
-      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-40">
+      {/* Fixed Bottom Quick CTA for Mobile */}
+      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[85%]">
          <button 
            onClick={() => setView('contact')}
-           className="bg-gray-900 text-white px-10 py-5 rounded-full font-black shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3"
+           className="w-full bg-gray-900 text-white px-6 py-5 rounded-full font-black shadow-2xl flex items-center justify-center gap-3 text-sm active:scale-95 transition-transform"
          >
-            상담 및 대량구매 문의 <span>📞</span>
+            대량구매 상담 📞
          </button>
       </div>
     </div>
