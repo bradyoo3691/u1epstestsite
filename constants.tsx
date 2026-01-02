@@ -96,7 +96,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: '클랑체어 1호',
     nameEn: 'Premium Echo Chair',
     price: 22000,
-    image: 'https://i.ibb.co/6RfKKtkD/5-removebg-preview.png',
+    image: 'https://i.ibb.co/rStk21v/2025-12-30-4-39-12.png',
     colors: ['#BECF47', '#FFFFFF', '#000000', '#2D5A27'],
     description: '인체공학적 설계로 장시간 착석에도 편안함을 유지합니다.',
     descriptionEn: 'Ergonomic design ensures comfort even during long hours of sitting.',

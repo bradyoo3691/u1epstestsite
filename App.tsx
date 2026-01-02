@@ -12,6 +12,10 @@ const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('home');
   const [lang, setLang] = useState<Language>(Language.KO);
   
+  // Contact Form State
+  const [contactData, setContactData] = useState({ name: '', phone: '', message: '' });
+  const [formStatus, setFormStatus] = useState<'IDLE' | 'SENDING' | 'SUCCESS' | 'ERROR'>('IDLE');
+
   const [products, setProducts] = useState<Product[]>(() => {
     const saved = localStorage.getItem('u1_products');
     return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
@@ -46,6 +50,27 @@ const App: React.FC = () => {
     window.scrollTo(0, 0);
   }, [view]);
 
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus('SENDING');
+    try {
+      const response = await fetch('https://formspree.io/f/mlgdjbqz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contactData),
+      });
+      if (response.ok) {
+        setFormStatus('SUCCESS');
+        setContactData({ name: '', phone: '', message: '' });
+        setTimeout(() => setFormStatus('IDLE'), 5000);
+      } else {
+        setFormStatus('ERROR');
+      }
+    } catch (err) {
+      setFormStatus('ERROR');
+    }
+  };
+
   const renderContent = () => {
     switch (view) {
       case 'home':
@@ -62,7 +87,7 @@ const App: React.FC = () => {
                   {t.viewAll} <span>→</span>
                 </button>
               </div>
-              <ProductList products={products.slice(0, 4)} lang={lang} />
+              <ProductList products={products.slice(0, 4)} lang={lang} setView={setView} />
             </section>
           </>
         );
@@ -71,7 +96,7 @@ const App: React.FC = () => {
           <section className="max-w-7xl mx-auto px-6 py-32">
             <h1 className="text-4xl font-bold mb-4">{t.navProducts}</h1>
             <p className="text-gray-500 mb-12">{t.mainProductsDesc}</p>
-            <ProductList products={products} lang={lang} />
+            <ProductList products={products} lang={lang} setView={setView} />
           </section>
         );
       case 'product-detail':
@@ -162,22 +187,62 @@ const App: React.FC = () => {
                 <h1 className="text-4xl font-bold mb-4">{t.contactTitle}</h1>
                 <p className="text-gray-500 mb-12 whitespace-pre-line">{t.contactDesc}</p>
                 
-                <form className="space-y-6">
+                <form onSubmit={handleContactSubmit} className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-gray-400 uppercase">{t.formName}</label>
-                      <input type="text" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" />
+                      <input 
+                        type="text" 
+                        name="name"
+                        required
+                        value={contactData.name}
+                        onChange={(e) => setContactData({...contactData, name: e.target.value})}
+                        className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" 
+                      />
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-gray-400 uppercase">{t.formPhone}</label>
-                      <input type="text" className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" />
+                      <input 
+                        type="text" 
+                        name="phone"
+                        required
+                        value={contactData.phone}
+                        onChange={(e) => setContactData({...contactData, phone: e.target.value})}
+                        className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" 
+                      />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-gray-400 uppercase">{t.formMessage}</label>
-                    <textarea rows={5} className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" />
+                    <textarea 
+                      rows={5} 
+                      name="message"
+                      required
+                      value={contactData.message}
+                      onChange={(e) => setContactData({...contactData, message: e.target.value})}
+                      className="w-full bg-gray-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-[#BECF47]" 
+                    />
                   </div>
-                  <button className="w-full bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-black transition-colors">{t.formSubmit}</button>
+                  <button 
+                    type="submit"
+                    disabled={formStatus === 'SENDING'}
+                    className={`w-full text-white py-4 rounded-xl font-bold transition-all shadow-lg ${
+                      formStatus === 'SENDING' ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900 hover:bg-black active:scale-[0.98]'
+                    }`}
+                  >
+                    {formStatus === 'SENDING' ? (lang === Language.KO ? '보내는 중...' : 'Sending...') : t.formSubmit}
+                  </button>
+
+                  {formStatus === 'SUCCESS' && (
+                    <div className="p-4 bg-green-50 text-green-700 rounded-xl text-center font-bold animate-bounce">
+                      {lang === Language.KO ? '문의가 성공적으로 전송되었습니다!' : 'Your message has been sent successfully!'}
+                    </div>
+                  )}
+                  {formStatus === 'ERROR' && (
+                    <div className="p-4 bg-red-50 text-red-700 rounded-xl text-center font-bold">
+                      {lang === Language.KO ? '오류가 발생했습니다. 다시 시도해주세요.' : 'Something went wrong. Please try again.'}
+                    </div>
+                  )}
                 </form>
               </div>
               <div className="space-y-8">
