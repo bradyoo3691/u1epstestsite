@@ -18,7 +18,18 @@ const App: React.FC = () => {
 
   const [products, setProducts] = useState<Product[]>(() => {
     const saved = localStorage.getItem('u1_products');
-    return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
+    if (!saved) return INITIAL_PRODUCTS;
+    
+    // 로컬 스토리지 데이터가 있다면 불러오되, 
+    // 기본 제품(ID: 1)의 이미지는 constants.tsx의 최신 URL로 강제 업데이트(동기화)
+    const parsedProducts: Product[] = JSON.parse(saved);
+    return parsedProducts.map(p => {
+      const initial = INITIAL_PRODUCTS.find(i => i.id === p.id);
+      if (initial && initial.id === '1') {
+        return { ...p, image: initial.image }; // 최신 이미지 주소 강제 반영
+      }
+      return p;
+    });
   });
 
   const [posts, setPosts] = useState<BlogPost[]>(() => {
