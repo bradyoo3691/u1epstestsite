@@ -47,11 +47,12 @@ const Hero: React.FC<HeroProps> = ({ lang, setView }) => {
           className="relative cursor-pointer group"
           onClick={() => setView('product-detail')}
         >
-          <div className="w-full h-[500px] bg-white rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center p-8 transition-all duration-500 group-hover:shadow-[#BECF47]/20 group-hover:scale-[1.02]">
+          {/* 패딩 p-8 제거하고 p-2로 조정, 이미지는 scale-125로 확대하여 꽉 차는 느낌 구현 */}
+          <div className="w-full h-[500px] bg-white rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center p-2 transition-all duration-500 group-hover:shadow-[#BECF47]/20 group-hover:scale-[1.02]">
             <img 
-              src="https://i.ibb.co/rStk21v/2025-12-30-4-39-12.png" 
+              src="https://i.ibb.co/n8YJMcTX/image.png" 
               alt="Klang Chair no.1"
-              className="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:rotate-2"
+              className="w-full h-full object-contain scale-110 transition-transform duration-700 group-hover:rotate-2 group-hover:scale-125"
             />
           </div>
           <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-50 transform transition-transform group-hover:-translate-y-2">

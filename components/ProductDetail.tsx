@@ -28,11 +28,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ lang, setView }) => {
         <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
            <h3 className="text-gray-400 font-medium tracking-[0.3em] mb-2 uppercase">KLANG CHAIR</h3>
            <h1 className="text-4xl md:text-5xl font-bold mb-12">클랑체어 1호</h1>
-           <div className="w-full max-w-3xl mb-12">
+           <div className="w-full max-w-4xl mb-12 overflow-hidden">
               <img 
-                src="https://i.ibb.co/rStk21v/2025-12-30-4-39-12.png" 
+                src="https://i.ibb.co/n8YJMcTX/image.png" 
                 alt="Klang Chair Hero" 
-                className="w-full h-auto object-contain rounded-2xl"
+                className="w-full h-auto object-contain scale-110 transform"
               />
            </div>
         </div>
