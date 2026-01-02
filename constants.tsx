@@ -40,7 +40,7 @@ export const TRANSLATIONS = {
     formMessage: '문의내용',
     formSubmit: '메시지 보내기',
     office: '본사 위치',
-    address: '경기도 안산시 상록구 광덕서로 82 유원빌딩 4층',
+    address: '경기도 남양주시 진접읍 진벌로51번길 54',
     newsletter: '뉴스레터',
     newsletterDesc: '새로운 제품 소식을 받아보세요.',
     subscribe: '구독'
@@ -83,7 +83,7 @@ We will find the most cost-effective method for you.`,
     formMessage: 'Message',
     formSubmit: 'Send Message',
     office: 'Head Office',
-    address: '4F, U1 Bldg, 82 Gwangdeokseo-ro, Ansan, Korea',
+    address: '54, Jinbeol-ro 51beon-gil, Jinjeop-eup, Namyangju-si, Gyeonggi-do, Korea',
     newsletter: 'Newsletter',
     newsletterDesc: 'Get the latest news about our new products.',
     subscribe: 'Subscribe'

@@ -258,14 +258,16 @@ const App: React.FC = () => {
               </div>
               <div className="space-y-8">
                  <div className="h-[400px] bg-gray-100 rounded-3xl overflow-hidden relative shadow-inner">
-                   <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-medium">
-                      Google Maps Placeholder
-                   </div>
+                   <img 
+                     src="https://i.ibb.co/8L6zd3Kr/image.png" 
+                     alt="유원EPS 약도" 
+                     className="w-full h-full object-cover"
+                   />
                  </div>
                  <div className="grid grid-cols-2 gap-8">
                     <div>
                        <p className="text-xs font-bold text-[#BECF47] mb-2 uppercase">{t.office}</p>
-                       <p className="font-bold">{lang === Language.KO ? '경기도 안산시' : 'Ansan-si, Gyeonggi-do'}</p>
+                       <p className="font-bold">{lang === Language.KO ? '유원EPS' : 'U1 eps'}</p>
                        <p className="text-sm text-gray-500 whitespace-pre-line">{t.address}</p>
                     </div>
                     <div>
