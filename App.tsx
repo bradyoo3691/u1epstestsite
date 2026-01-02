@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProductList from './components/ProductList';
 import AdminDashboard from './components/AdminDashboard';
+import ProductDetail from './components/ProductDetail';
 import { ViewState, Language, Product, BlogPost, SiteConfig } from './types';
 import { INITIAL_PRODUCTS, INITIAL_POSTS, TRANSLATIONS } from './constants';
 
@@ -40,12 +41,17 @@ const App: React.FC = () => {
     localStorage.setItem('u1_posts', JSON.stringify(posts));
   }, [posts]);
 
+  // 상단으로 스크롤 이동 (뷰 변경 시)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
+
   const renderContent = () => {
     switch (view) {
       case 'home':
         return (
           <>
-            <Hero lang={lang} />
+            <Hero lang={lang} setView={setView} />
             <section className="max-w-7xl mx-auto px-6 py-24">
               <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                 <div>
@@ -68,6 +74,8 @@ const App: React.FC = () => {
             <ProductList products={products} lang={lang} />
           </section>
         );
+      case 'product-detail':
+        return <ProductDetail lang={lang} setView={setView} />;
       case 'blog':
         return (
           <section className="max-w-7xl mx-auto px-6 py-32">
@@ -99,7 +107,6 @@ const App: React.FC = () => {
             <h1 className="text-4xl font-bold mb-12 text-center">{t.deliveryTitle}</h1>
             
             <div className="space-y-8">
-              {/* Shipping Fee Guide Section */}
               <div className="bg-white border-2 border-[#BECF47] p-8 md:p-12 rounded-[2rem] shadow-sm">
                 <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 leading-tight whitespace-pre-line">
                   {t.shippingGuideTitle}
@@ -128,7 +135,6 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bulk Purchase Tip Section */}
               <div className="bg-[#fbfc8233] p-8 md:p-12 rounded-[2rem] border border-[#BECF47]/30">
                 <h3 className="text-xl md:text-2xl font-bold mb-6 text-gray-900 whitespace-pre-line">
                   {t.bulkTipTitle}

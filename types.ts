@@ -36,4 +36,4 @@ export interface SiteConfig {
   heroSubTitleEn: string;
 }
 
-export type ViewState = 'home' | 'products' | 'delivery' | 'contact' | 'blog' | 'admin';
+export type ViewState = 'home' | 'products' | 'delivery' | 'contact' | 'blog' | 'admin' | 'product-detail';
