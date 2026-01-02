@@ -49,7 +49,7 @@ const Hero: React.FC<HeroProps> = ({ lang, setView }) => {
         >
           <div className="w-full h-[500px] bg-white rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center p-8 transition-all duration-500 group-hover:shadow-[#BECF47]/20 group-hover:scale-[1.02]">
             <img 
-              src="https://i.ibb.co/6RfKKtkD/5-removebg-preview.png" 
+              src="https://i.ibb.co/rStk21v/2025-12-30-4-39-12.png" 
               alt="Klang Chair no.1"
               className="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:rotate-2"
             />
