@@ -20,7 +20,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, lang, setView }) =>
             className={`group cursor-pointer transition-all duration-300 ${!isSignature ? 'opacity-80 hover:opacity-100' : ''}`}
             onClick={() => isSignature ? setView('product-detail') : null}
           >
-            <div className="aspect-square bg-gray-50 rounded-2xl md:rounded-[2.5rem] overflow-hidden mb-4 md:mb-6 relative shadow-sm group-hover:shadow-xl transition-all duration-500">
+            <div className="aspect-square bg-gray-50 rounded-2xl md:rounded-[2rem] overflow-hidden mb-4 md:mb-6 relative shadow-sm group-hover:shadow-xl transition-all duration-500">
               <img 
                 src={product.image} 
                 alt={lang === Language.KO ? product.name : product.nameEn}
@@ -31,20 +31,20 @@ const ProductList: React.FC<ProductListProps> = ({ products, lang, setView }) =>
               {!isSignature && (
                 <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px] flex items-center justify-center">
                   <div className="bg-white/90 px-3 md:px-5 py-1.5 md:py-2 rounded-full shadow-lg transform -rotate-2 border border-gray-100">
-                    <span className="text-gray-900 font-black tracking-tight text-[10px] md:text-sm uppercase">Coming Soon</span>
+                    <span className="text-gray-900 font-bold tracking-tight text-[10px] md:text-sm uppercase">Coming Soon</span>
                   </div>
                 </div>
               )}
 
               {isSignature && (
-                <div className="absolute top-3 right-3 md:top-6 md:right-6 bg-[#FF6B00] text-white px-3 py-1 rounded-full text-[9px] md:text-xs font-black uppercase tracking-widest z-10 shadow-lg shadow-orange-200">
+                <div className="absolute top-3 right-3 md:top-6 md:right-6 bg-[#BECF47] text-white px-3 py-1 rounded-full text-[9px] md:text-xs font-bold uppercase tracking-widest z-10">
                   {lang === Language.KO ? product.category : product.categoryEn}
                 </div>
               )}
             </div>
             
             <div className="flex flex-col px-1 md:px-2">
-              <h3 className={`text-sm md:text-xl font-black transition-colors ${isSignature ? 'group-hover:text-[#FF6B00] text-gray-900' : 'text-gray-400'}`}>
+              <h3 className={`text-sm md:text-xl font-bold transition-colors ${isSignature ? 'group-hover:text-[#BECF47] text-gray-900' : 'text-gray-400'}`}>
                 {lang === Language.KO ? product.name : product.nameEn}
               </h3>
               <div className="flex gap-1 md:gap-2 mt-1 md:mt-2 mb-2 md:mb-3">
@@ -56,7 +56,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, lang, setView }) =>
                   />
                 ))}
               </div>
-              <p className={`text-base md:text-2xl font-black ${isSignature ? 'text-gray-900' : 'text-gray-200'}`}>
+              <p className={`text-base md:text-2xl font-bold ${isSignature ? 'text-gray-900' : 'text-gray-200'}`}>
                 {isSignature ? `₩${product.price.toLocaleString()}` : 'Preparing'}
               </p>
             </div>

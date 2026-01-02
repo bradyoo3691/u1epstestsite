@@ -23,29 +23,30 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, setView, lang, setLang }) 
   return (
     <div className="fixed top-0 left-0 w-full z-50">
       {/* Top Announcement Banner */}
-      <div className="bg-[#FF6B00] text-white text-[10px] md:text-xs py-2 px-6 text-center font-bold tracking-tight">
+      <div className="bg-[#BECF47] text-white text-[10px] md:text-xs py-2 px-6 text-center font-bold tracking-tight">
         {lang === Language.KO 
           ? '🎉 유원EPS 공식몰 오픈! 신규 회원 배송비 할인 이벤트 진행 중' 
-          : '🎉 Official Store Open! Free shipping for new members.'}
+          : '🎉 Official Store Open! Shipping discount for new members.'}
       </div>
-      
+
       <nav className="bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
           <div 
             className="text-xl md:text-2xl font-bold tracking-tighter cursor-pointer flex items-center gap-1"
             onClick={() => setView('home')}
           >
-            <span className="text-[#FF6B00]">U1</span>
+            <span className="text-[#BECF47]">U1</span>
             <span>eps</span>
           </div>
 
+          {/* Desktop Navigation - Hidden on mobile */}
           <div className="hidden md:flex items-center gap-10">
             {links.map((link) => (
               <button
                 key={link.id}
                 onClick={() => setView(link.id as ViewState)}
-                className={`text-sm font-bold transition-colors hover:text-[#FF6B00] ${
-                  currentView === link.id ? 'text-[#FF6B00]' : 'text-gray-500'
+                className={`text-sm font-bold transition-colors hover:text-[#BECF47] ${
+                  currentView === link.id ? 'text-[#BECF47]' : 'text-gray-500'
                 }`}
               >
                 {link.label}
@@ -63,22 +64,22 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, setView, lang, setLang }) 
             <button 
               onClick={() => setView('admin')}
               className={`text-[10px] md:text-xs px-2 md:px-3 py-1 md:py-1.5 rounded-full font-bold transition-colors ${
-                currentView === 'admin' ? 'bg-[#FF6B00] text-white' : 'bg-gray-100 text-gray-600'
+                currentView === 'admin' ? 'bg-[#BECF47] text-white' : 'bg-gray-100 text-gray-600'
               }`}
             >
               Admin
             </button>
           </div>
         </div>
-        
-        {/* Mobile Sub-navigation for easy access */}
-        <div className="md:hidden flex justify-center gap-6 py-2 border-t border-gray-50 overflow-x-auto">
+
+        {/* Mobile Navigation Menu - Visible on mobile below the main header row */}
+        <div className="md:hidden flex items-center justify-around py-3 border-t border-gray-50 bg-white/50 px-2">
           {links.map((link) => (
             <button
               key={link.id}
               onClick={() => setView(link.id as ViewState)}
-              className={`text-[11px] font-bold whitespace-nowrap ${
-                currentView === link.id ? 'text-[#FF6B00]' : 'text-gray-400'
+              className={`text-[11px] font-bold transition-colors whitespace-nowrap px-1 ${
+                currentView === link.id ? 'text-[#BECF47]' : 'text-gray-400'
               }`}
             >
               {link.label}
